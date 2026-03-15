@@ -1,28 +1,31 @@
 import type { Metadata } from "next";
-import { Syne, DM_Sans, Space_Mono } from "next/font/google";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
+import { Syne, DM_Sans } from "next/font/google";
+import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
-import "@/styles/globals.css";
 
-const syne = Syne({ subsets: ["latin"], variable: "--font-syne", display: "swap" });
-const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-dm-sans", display: "swap" });
-const spaceMono = Space_Mono({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-space-mono", display: "swap" });
+const syne = Syne({
+  subsets: ["latin"],
+  variable: "--font-syne",
+  weight: ["400", "500", "600", "700", "800"],
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-dm-sans",
+  weight: ["300", "400", "500", "600"],
+});
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://mecaguard.app"),
-  title: { default: "MecaGuard — Diagnóstico Automotriz Inteligente", template: "%s | MecaGuard" },
-  description: "Conecta tu smartphone con el cerebro de tu auto. Diagnóstico profesional, lectura de fallas y monitoreo en tiempo real.",
+  title: "MecaGuard — Diagnóstico Automotriz Inteligente",
+  description: "Conecta tu escáner OBD2 y diagnostica tu vehículo como un profesional.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={`${syne.variable} ${dmSans.variable} ${spaceMono.variable}`}>
-      <body className="bg-background text-text-primary antialiased">
+    <html lang="es" className={`${syne.variable} ${dmSans.variable}`}>
+      <body>
         <AuthProvider>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
+          {children}
         </AuthProvider>
       </body>
     </html>
