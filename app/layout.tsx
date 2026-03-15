@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import { Syne, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
   description: "Conecta tu escáner OBD2 y diagnostica tu vehículo como un profesional.",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="es" className={`${syne.variable} ${dmSans.variable}`}>
       <body>
