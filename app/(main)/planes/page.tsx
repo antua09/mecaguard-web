@@ -1,71 +1,55 @@
 "use client";
-import { useState } from "react";
 import { motion } from "motion/react";
-import { Zap, Star, Building2, Wrench, Check, Coins } from "lucide-react";
+import { Coins, Zap, FileText, Bot, Activity, RotateCcw, TrendingUp, ShieldCheck, Infinity } from "lucide-react";
 import Link from "next/link";
 
-const PACKAGES = [
+const HOW_IT_WORKS = [
   {
-    id: "basic",
-    name: "Básico",
-    icon: Zap,
-    credits: 50,
-    price: 9.99,
-    priceMXN: 170,
-    color: "from-blue-500/20 to-blue-600/5",
-    border: "border-blue-500/30",
-    iconColor: "text-blue-400",
-    features: ["50 créditos", "Sin vencimiento", "Soporte por email", "Historial de diagnósticos"],
-    popular: false,
+    step: "01",
+    title: "Crea tu cuenta",
+    description: "Regístrate gratis y recibe 10 créditos de bienvenida para empezar a explorar MecaGuard sin costo.",
   },
   {
-    id: "standard",
-    name: "Estándar",
-    icon: Star,
-    credits: 150,
-    price: 19.99,
-    priceMXN: 340,
-    color: "from-violet-500/20 to-violet-600/5",
-    border: "border-violet-500/30",
-    iconColor: "text-violet-400",
-    features: ["150 créditos", "Sin vencimiento", "Soporte prioritario", "Historial completo", "Exportar reportes PDF"],
-    popular: true,
+    step: "02",
+    title: "Compra créditos",
+    description: "Elige el paquete que mejor se adapte a tu uso. Sin suscripciones, sin cobros recurrentes.",
   },
   {
-    id: "pro",
-    name: "Pro",
-    icon: Building2,
-    credits: 400,
-    price: 39.99,
-    priceMXN: 680,
-    color: "from-cyan-500/20 to-cyan-600/5",
-    border: "border-cyan-500/30",
-    iconColor: "text-cyan-400",
-    features: ["400 créditos", "Sin vencimiento", "Soporte 24/7", "Historial ilimitado", "Reportes avanzados", "API access"],
-    popular: false,
+    step: "03",
+    title: "Úsalos cuando quieras",
+    description: "Cada acción en la app consume una cantidad de créditos. Tú decides cuándo y cómo usarlos.",
+  },
+];
+
+const BENEFITS = [
+  {
+    icon: Infinity,
+    title: "Sin vencimiento",
+    description: "Tus créditos no caducan. Compra hoy y úsalos cuando los necesites.",
   },
   {
-    id: "workshop",
-    name: "Taller",
-    icon: Wrench,
-    credits: 1000,
-    price: 79.99,
-    priceMXN: 1360,
-    color: "from-amber-500/20 to-amber-600/5",
-    border: "border-amber-500/30",
-    iconColor: "text-amber-400",
-    features: ["1,000 créditos", "Sin vencimiento", "Gerente de cuenta", "Multi-usuario (5)", "Dashboard taller", "Facturación"],
-    popular: false,
+    icon: Coins,
+    title: "Paga lo que usas",
+    description: "Sin cobros mensuales fijos. Solo gastas créditos cuando realizas acciones.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Transparencia total",
+    description: "Cada crédito gastado queda registrado en tu historial con detalle.",
+  },
+  {
+    icon: Activity,
+    title: "Sincronización en tiempo real",
+    description: "Tu saldo se actualiza al instante en la web y en la app móvil.",
   },
 ];
 
 export default function PlanesPage() {
-  const [currency, setCurrency] = useState<"USD" | "MXN">("USD");
-
   return (
     <div className="min-h-screen bg-background pt-32 pb-24 px-4">
-      {/* Header */}
-      <div className="text-center mb-16">
+
+      {/* Hero */}
+      <div className="text-center mb-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -74,105 +58,170 @@ export default function PlanesPage() {
           <Coins size={16} />
           Sistema de créditos
         </motion.div>
+
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="text-4xl md:text-5xl font-bold mb-4"
+          className="text-4xl md:text-6xl font-bold mb-6 leading-tight"
         >
-          Paga solo lo que usas
+          Sin suscripciones.<br />
+          <span className="text-primary">Solo créditos.</span>
         </motion.h1>
+
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="text-muted-foreground text-lg max-w-xl mx-auto mb-8"
+          className="text-muted-foreground text-lg max-w-2xl mx-auto mb-10"
         >
-          Sin suscripciones. Sin sorpresas. Compra créditos una vez y úsalos cuando los necesites — nunca vencen.
+          MecaGuard funciona con un sistema de créditos flexible. 
+          Compra créditos una sola vez, úsalos cuando quieras y nunca pagues por lo que no usas.
         </motion.p>
 
-        {/* Currency toggle */}
-        <div className="inline-flex items-center bg-card border border-border rounded-full p-1">
-          <button
-            onClick={() => setCurrency("USD")}
-            className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${currency === "USD" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4"
+        >
+          <Link
+            href="/register"
+            className="bg-primary text-primary-foreground px-8 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity"
           >
-            USD
-          </button>
-          <button
-            onClick={() => setCurrency("MXN")}
-            className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${currency === "MXN" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}
+            Comenzar gratis — 10 créditos
+          </Link>
+          <Link
+            href="/contacto"
+            className="text-muted-foreground hover:text-foreground transition-colors text-sm"
           >
-            MXN
-          </button>
+            ¿Tienes preguntas? Contáctanos →
+          </Link>
+        </motion.div>
+      </div>
+
+      {/* How it works */}
+      <div className="max-w-4xl mx-auto mb-24">
+        <motion.h2
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          className="text-2xl font-bold text-center mb-12"
+        >
+          ¿Cómo funciona?
+        </motion.h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {HOW_IT_WORKS.map((item, i) => (
+            <motion.div
+              key={item.step}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
+              className="text-center"
+            >
+              <div className="w-14 h-14 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center mx-auto mb-4">
+                <span className="text-primary font-bold text-lg">{item.step}</span>
+              </div>
+              <h3 className="font-bold text-lg mb-2">{item.title}</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">{item.description}</p>
+            </motion.div>
+          ))}
         </div>
       </div>
 
-      {/* Packages grid */}
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {PACKAGES.map((pkg, i) => {
-          const Icon = pkg.icon;
-          return (
-            <motion.div
-              key={pkg.id}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 * i }}
-              className={`relative rounded-2xl border bg-gradient-to-b p-6 flex flex-col ${pkg.border} ${pkg.color} ${pkg.popular ? "ring-2 ring-primary" : ""}`}
-            >
-              {pkg.popular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full">
-                  Más popular
-                </div>
-              )}
-
-              <div className={`w-10 h-10 rounded-xl bg-card border border-border flex items-center justify-center mb-4 ${pkg.iconColor}`}>
-                <Icon size={20} />
-              </div>
-
-              <h3 className="text-lg font-bold mb-1">{pkg.name}</h3>
-
-              <div className="flex items-end gap-1 mb-1">
-                <span className="text-3xl font-bold">
-                  {currency === "USD" ? `$${pkg.price}` : `$${pkg.priceMXN}`}
-                </span>
-                <span className="text-muted-foreground text-sm mb-1">{currency}</span>
-              </div>
-
-              <div className="flex items-center gap-1.5 text-sm font-semibold text-primary mb-6">
-                <Coins size={14} />
-                {pkg.credits.toLocaleString()} créditos
-              </div>
-
-              <ul className="space-y-2.5 mb-8 flex-1">
-                {pkg.features.map((f) => (
-                  <li key={f} className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Check size={14} className="text-primary shrink-0" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-
-              <Link
-                href="/register"
-                className={`w-full text-center py-2.5 rounded-xl text-sm font-semibold transition-all ${pkg.popular ? "bg-primary text-primary-foreground hover:opacity-90" : "bg-card border border-border hover:border-primary/50 hover:text-primary"}`}
+      {/* Benefits */}
+      <div className="max-w-4xl mx-auto mb-24">
+        <motion.h2
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          className="text-2xl font-bold text-center mb-12"
+        >
+          Ventajas del sistema de créditos
+        </motion.h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {BENEFITS.map((item, i) => {
+            const Icon = item.icon;
+            return (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                className="flex gap-4 bg-card border border-border rounded-2xl p-6"
               >
-                Comenzar ahora
-              </Link>
-            </motion.div>
-          );
-        })}
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                  <Icon size={20} className="text-primary" />
+                </div>
+                <div>
+                  <h3 className="font-semibold mb-1">{item.title}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{item.description}</p>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
 
-      {/* Bottom note */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.6 }}
-        className="text-center text-muted-foreground text-sm mt-12"
+      {/* FAQ simple */}
+      <div className="max-w-2xl mx-auto mb-20">
+        <motion.h2
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          className="text-2xl font-bold text-center mb-10"
+        >
+          Preguntas frecuentes
+        </motion.h2>
+        <div className="space-y-4">
+          {[
+            {
+              q: "¿Los créditos vencen?",
+              a: "No. Tus créditos no tienen fecha de vencimiento. Puedes usarlos cuando quieras.",
+            },
+            {
+              q: "¿Cómo sé cuántos créditos me quedan?",
+              a: "Tu saldo aparece en el dashboard de la app y se actualiza en tiempo real cada vez que realizas una acción.",
+            },
+            {
+              q: "¿Puedo ver en qué usé mis créditos?",
+              a: "Sí. Cada acción queda registrada en tu historial de transacciones con fecha, descripción y cantidad de créditos.",
+            },
+            {
+              q: "¿Los créditos funcionan también en la app móvil?",
+              a: "Sí. El saldo es el mismo en la web y en la app móvil. Se sincroniza automáticamente.",
+            },
+          ].map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.05 }}
+              className="bg-card border border-border rounded-xl p-5"
+            >
+              <h4 className="font-semibold mb-2">{item.q}</h4>
+              <p className="text-muted-foreground text-sm leading-relaxed">{item.a}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* CTA */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        className="max-w-xl mx-auto text-center bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/30 rounded-3xl p-10"
       >
-        🔒 Pagos seguros · Los créditos nunca vencen · Soporte en español
-      </motion.p>
+        <Coins size={32} className="text-primary mx-auto mb-4" />
+        <h2 className="text-2xl font-bold mb-3">Empieza con 10 créditos gratis</h2>
+        <p className="text-muted-foreground text-sm mb-6">
+          Crea tu cuenta y explora MecaGuard sin necesidad de tarjeta de crédito.
+        </p>
+        <Link
+          href="/register"
+          className="inline-block bg-primary text-primary-foreground px-8 py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity"
+        >
+          Crear cuenta gratis
+        </Link>
+      </motion.div>
+
     </div>
   );
 }
