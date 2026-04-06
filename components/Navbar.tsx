@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Zap, Menu, X, User, LogOut, ChevronDown } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { logout } from "@/lib/firebase";
 import { cn } from "@/utils/cn";
 
