@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Syne, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
+import { ThemeProvider } from "@/context/ThemeProvider";
 
 const syne = Syne({
   subsets: ["latin"],
@@ -23,11 +24,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="es" className={`${syne.variable} ${dmSans.variable}`}>
+    <html lang="es" className={`${syne.variable} ${dmSans.variable}`} suppressHydrationWarning>
       <body>
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+        <ThemeProvider>
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
